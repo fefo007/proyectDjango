@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+    {% block customSection %}
+    <section>
+        <div>
+            {% if avatar_img %}
+                <img src='{{avatar_img}}' alt='avatar'>
+            {% else %}
+                <p>Coloque una imagen</p>
+            {% endif %}
+            {% comment %} <div  style="display: flex;justify-content: center;">
+                <form  style="display: flex;flex-direction: column;" action='{% url "user" %}'method='POST' enctype='multipart/form-data'>{% csrf_token %}
+                    {{avataredit_form.as_p}}
+                    <input class='btn btn-default' type='submit'value='Cargar imagen'> 
+                </form>
+            </div>  {% endcomment %}
+        </div>
+        <div  style="display: flex;justify-content: center;">
+            <form style="display: flex;flex-direction: column;" action="{%url 'user' %}" method="POST">{% csrf_token %}
+                    {{useredit_form.as_p}}
+                <input class='btn btn-default' type='submit'value='Actualizar perfil'>        
+            </form>
+        </div>
+        <div>
+
+        </div>
+    </section>
+    {% endblock customSection %}

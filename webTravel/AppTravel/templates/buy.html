@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+    {% block customSection %}
+    {% load static %}
+    <section class="container">
+        <div id="main-content" style='padding: 20px;'>
+            <div>
+                <h1>{{travel.name}}</h1>
+            </div>
+            <div>
+                <form action="{%url 'buy' travel.id %}" method="POST">{% csrf_token %}
+                    {{order_form.as_p}}
+                    <input class='btn btn-default' type='submit'value='Comprar'> 
+                </form>
+            </div>
+        </div>
+    </section>
+    {% endblock customSection %}

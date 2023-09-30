@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+    {% block customSection %}
+        <section>
+            <div>
+                {% if message %}
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <form action="{% url 'contact' %}" method='POST'>{% csrf_token %}
+                        {{message_form}}
+                    <input type='submit'value='Enviar'> 
+                </form>
+            </div>
+        </section>
+    {% endblock customSection %}

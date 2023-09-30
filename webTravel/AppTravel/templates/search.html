@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+    {% block customSection %}
+        <section>
+            <div>
+                <h4>Su busqueda</h4>
+                {% if search %}
+                    <ul>
+                        {% for travel in search %}
+                            <li>
+                                {{travel}}
+                            </li>
+                        {% endfor %}
+                    <ul>
+                {% else %}
+                    <h4>No se encontro ningun viaje con ese nombre</h4>
+                {% endif %}
+                
+                
+            </div>
+        </section>
+    {% endblock customSection %}

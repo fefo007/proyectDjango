@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+    {% block customSection %}
+
+    <section class="travels_container">
+        <div class="travels_title">
+            <h2>Viajes</h2>
+        </div>
+        <div class="travels_list">
+            {% for travel in travels %}
+                <div class="card" style="width: 20rem;margin: 10px;">
+                    <img src={{travel.image.url}} class="card-img-top" alt={{travel.country}} style="width: 100%;height: 60%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{travel.name}}</h5>
+                        <p class="card-text">U$D{{travel.price}}</p>
+                        <a href="{% url 'travel' travel.id %}" class="btn btn-primary">Detalles del Viaje</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endblock customSection %}

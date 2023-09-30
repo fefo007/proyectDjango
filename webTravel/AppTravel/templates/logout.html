@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+    {% block customSection %}
+        <section>
+            <div>
+                <h2>Se ha deslogeado con exito!</h2>
+                <h3>Muchas gracias, vuelva pronto</h3>
+            </div>
+            <div>
+                <button href="{% url 'home'%}">Ir al home</button>
+            </div>
+        </section>
+    {% endblock customSection %}

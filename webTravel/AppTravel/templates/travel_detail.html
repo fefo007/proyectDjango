@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+    {% block customSection %}
+        <section class="section section-sm section-top-0 section-fluid section-relative bg-gray-4">
+            <div class="container-fluid">
+                <div>
+                    <h2>{{travel.name}}</h2>
+                </div>
+                <div>
+                    <h3>{{travel.country}}</h3>
+                    <h3>{{travel.cities}}</h3>
+                </div>
+                <div class="owl-carousel owl-classic owl-dots-secondary" data-items="1" data-sm-items="2"
+                        data-md-items="3"  data-stage-padding="15"
+                        data-xxl-stage-padding="0" data-margin="20" data-autoplay="true" data-nav="true" data-dots="true">
+                    <article class="thumbnail thumbnail-mary">
+                        <div class="thumbnail-mary-figure">
+                            <img src="{{travel.screen1.url}}" alt={{travel.country}} width="150" height="100" />
+                        </div>
+                        <div class="thumbnail-mary-caption">
+                            <a class="icon fl-bigmug-line-zoom60" href='{{travel.screen1.url}}'
+                                data-lightgallery="item"><img src='{{travel.screen1.url}}' alt={{travel.country}}
+                                    width="150" height="100" /></a>
+                        </div>
+                    </article>
+                    <article class="thumbnail thumbnail-mary">
+                        <div class="thumbnail-mary-figure">
+                            <img src="{{travel.screen2.url}}" alt={{travel.country}} width="150" height="100" />
+                        </div>
+                        <div class="thumbnail-mary-caption">
+                            <a class="icon fl-bigmug-line-zoom60" href='{{travel.screen2.url}}'
+                                data-lightgallery="item"><img src='{{travel.screen2.url}}' alt={{travel.country}}
+                                    width="150" height="100" /></a>
+                        </div>
+                    </article>
+                    <article class="thumbnail thumbnail-mary">
+                        <div class="thumbnail-mary-figure">
+                            <img src="{{travel.screen3.url}}" alt={{travel.country}} width="150" height="100" />
+                        </div>
+                        <div class="thumbnail-mary-caption">
+                            <a class="icon fl-bigmug-line-zoom60" href='{{travel.screen3.url}}'
+                                data-lightgallery="item"><img src='{{travel.screen3.url}}' alt={{travel.country}}
+                                    width="150" height="100" /></a>
+                        </div>
+                    </article>
+                </div>
+                <div>
+                    <p>{{travel.description}}</p>    
+                </div>
+                <div>
+                    <p>{{travel.price}}</p>
+                    <a class='button' href='{% url "buy" travel.id %}'>Comprar viaje</a>    
+                </div>
+            </div>
+        </section>
+    {% endblock customSection %}
