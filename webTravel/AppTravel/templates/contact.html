@@ -1,6 +1,6 @@
 {% extends "base.html" %}
     {% block customSection %}
-        <section>
+        <section class="user_container">
             <div>
                 {% if message %}
                     {% for message in messages %}
@@ -10,10 +10,10 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                <form action="{% url 'contact' %}" method='POST'>{% csrf_token %}
-                        {{message_form}}
-                    <input type='submit'value='Enviar'> 
+            <div class="user_form_container">
+                <form class="user_form" action="{% url 'contact' %}" method='POST'>{% csrf_token %}
+                    {% include "forms_template.html" %}
+                    <input class='btn btn-primary' type='submit'value='Enviar'> 
                 </form>
             </div>
         </section>

@@ -74,7 +74,7 @@ def contact(req):
             return redirect('contact.html')
     else:
         message_form = SendMessage()
-        return render(req,'contact.html',{'message_form':message_form})
+        return render(req,'contact.html',{'form':message_form})
 
 def user_login(req):
     if req.user.is_authenticated:
@@ -129,7 +129,7 @@ def user_edit(req):
         return render(req,'user.html',{"mensaje":f'error al actualizar el usuario, intente denuevo'})
     else:
         useredit_form = UserEdit(instance = {'avatar':avatar,'user':user})
-        return render(req,'user.html',{"useredit_form":useredit_form})
+        return render(req,'user.html',{"form":useredit_form,'avatar_img':avatar.image.url})
 
 # @login_required
 # def user_edit(req):
@@ -181,28 +181,6 @@ def avatar_img(req):
     except:
         return render(req,'user.html')
 
-# @login_required 
-# def avatar_edit(req):
-    
-#     if req.method == 'POST':
-#         avataredit_form = AvatarEditForm(req.POST)
-#         if avataredit_form.is_valid():
-#             data = avataredit_form.cleaned_data
-#             avatar = Avatar(
-#                 user = req.user.id,
-#                 image = data['image']
-#                 )
-#             avatar.save()
-#             return render(req,'user.html',{"mensaje":f'avatar actualizado correctamente'})
-#         return render(req,'user.html',{"mensaje":f'error al actualizar el avatar, intente denuevo'})
-#     else:
-#         avataredit_form = AvatarEditForm()
-#         return render(req,'user.html',{"avataredit_form":avataredit_form})
-
-# def home(req):
-
-#     return render(req,'home.html')
-
 def search(req):
     if req.GET['searchTravel']:
         search = req.GET['searchTravel']
@@ -213,14 +191,6 @@ def search(req):
 
 def aboutUs(req):
     return render(req,'aboutUs.html')
-
-# @login_required  
-# def orders(req):
-#     try:
-#         orders = Order.objects.get(user = req.user.id)
-#         return render(req,'orders.html',{'orders':orders})
-#     except:
-#         return render(req,'orders.html')
 
 
 class TravelListView(ListView):

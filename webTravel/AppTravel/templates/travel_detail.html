@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <h3>{{travel.country}}</h3>
-                    <h3>{{travel.cities}}</h3>
+                    <h4>{{travel.cities}}</h4>
                 </div>
                 <div class="owl-carousel owl-classic owl-dots-secondary" data-items="1" data-sm-items="2"
                         data-md-items="3"  data-stage-padding="15"
@@ -43,11 +43,11 @@
                         </div>
                     </article>
                 </div>
-                <div>
-                    <p>{{travel.description}}</p>    
+                <div class='travel_description_container'>
+                    <p class='travel_description'>{{travel.description}}</p>    
                 </div>
-                <div>
-                    <p>{{travel.price}}</p>
+                <div class='travel_buy_container'>
+                    <p class='travel_price'>Precio: U$D {{travel.price}}</p>
                     <a class='button' href='{% url "buy" travel.id %}'>Comprar viaje</a>    
                 </div>
             </div>

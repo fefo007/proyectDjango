@@ -11,7 +11,7 @@
                     <img src={{travel.image.url}} class="card-img-top" alt={{travel.country}} style="width: 100%;height: 60%;">
                     <div class="card-body">
                         <h5 class="card-title">{{travel.name}}</h5>
-                        <p class="card-text">U$D{{travel.price}}</p>
+                        <p class="card-text">U$D {{travel.price}}</p>
                         <a href="{% url 'travel' travel.id %}" class="btn btn-primary">Detalles del Viaje</a>
                     </div>
                 </div>
