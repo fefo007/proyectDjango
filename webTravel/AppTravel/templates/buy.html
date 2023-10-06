@@ -4,12 +4,13 @@
     <section class="container">
         <div id="main-content" style='padding: 20px;'>
             <div>
-                <h1>{{travel.name}}</h1>
+                <h2>{{travel.name}}</h2>
+                <h4> U$D {{travel.price}}</h4>
             </div>
             <div>
-                <form action="{%url 'buy' travel.id %}" method="POST">{% csrf_token %}
-                    {{order_form.as_p}}
-                    <input class='btn btn-default' type='submit'value='Comprar'> 
+                <form action="{%url 'buy' travel.id %}" style='margin-top:20px' method="POST">{% csrf_token %}
+                    {% include "forms_template.html" %}
+                    <input class='button button-lg button-primary button-ujarak' style='margin-top:20px' type='submit'value='Comprar'> 
                 </form>
             </div>
         </div>

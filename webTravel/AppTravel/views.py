@@ -1,10 +1,9 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse 
+# from django.shortcuts import get_object_or_404
 from .models import Order,Travel,Avatar,Messages,Tours
 from .forms import UserEdit,SendMessage,OrderForm
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-# from django.views.generic.edit import DeleteView,UpdateView,CreateView
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +12,7 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib.auth.models import User
 
 def error_404(req,exception):
     return render(req,'404error.html')
@@ -25,7 +25,7 @@ def buy_travel(req,travelid):
         if form.is_valid():
             data = form.cleaned_data
             order = Order(
-                client = user.username,
+                client = user,
                 travel = travel.name,
                 price = travel.price,
                 wayToPay = data['wayToPay'],
@@ -33,24 +33,23 @@ def buy_travel(req,travelid):
                 arrival = data['arrival']
                 )
             order.save()
-            return render(req,'orders.html')
+            return redirect('orders')
     else:
         order_form = OrderForm()
-        return render(req,'buy.html',{'travel':travel,'order_form':order_form})
+        return render(req,'buy.html',{'travel':travel,'form':order_form})
     
 def contact(req):
     if req.method == 'POST':
         message_form = SendMessage(req.POST)
         if message_form.is_valid():
             data = message_form.cleaned_data
-            client = req.user.username
             addressee = data['addressee']
             subject = data['subject']
             message = data['message']
 
             template = render_to_string('email_template.html',{
-                'client' : client,
                 'addressee' : addressee,
+                'subject' : subject,
                 'message' : message,
             })
 
@@ -65,13 +64,13 @@ def contact(req):
             email.send()
             messages.success(req,'Email enviado con exito!')
             msg = Messages(
-                client = req.user.username,
+                client = req.user,
                 addressee = data['addressee'],
                 subject = data['subject'],
                 message = data['message']
             )
             msg.save()
-            return redirect('contact.html')
+            return redirect('contact')
     else:
         message_form = SendMessage()
         return render(req,'contact.html',{'form':message_form})
@@ -89,10 +88,13 @@ def user_login(req):
                 user = authenticate(username=username,password=password)
                 if user:
                     login(req,user)
-                    return render(req,'home.html',{'user':user})
+                    return redirect('home')
                 else:
-                    return render(req,'login.html',{'user':f'Datos incorrectos'})
-            return render(req,'login.html')
+                    user_form = AuthenticationForm(instance={'username':username})
+                    return render(req,'login.html',{'msj':f'Usuario no registrado o password incorrecto',"user_form":user_form})
+            else:
+                user_form = AuthenticationForm()
+                return render(req,'login.html',{'msj':f'Datos incorrectos',"user_form":user_form})
         else:
             user_form = AuthenticationForm()
             return render(req,'login.html',{"user_form":user_form})
@@ -102,77 +104,42 @@ def user_register(req):
         usercreate_form = UserCreationForm(req.POST)
         if usercreate_form.is_valid():
             usercreate_form.save()
+            avatar = Avatar(
+                user = User.objects.get(username = req.POST['username']),
+                image = "avatares/userimg.png"
+            )
+            avatar.save()
             return render(req,'register.html',{"mensaje":f'usuario creado correctamente'})
-        return render(req,'register.html',{"mensaje":f'error al crear el usuario, intente denuevo'})
+        usercreate_form = UserCreationForm()
+        return render(req,'register.html',{"msj":f'error al crear el usuario, intente denuevo',"form":usercreate_form})
     else:
         usercreate_form = UserCreationForm()
-        return render(req,'register.html',{"usercreate_form":usercreate_form})
+        return render(req,'register.html',{"form":usercreate_form})
     
 @login_required
 def user_edit(req):
     user = req.user
     avatar = Avatar.objects.get(user = req.user.id)
+    # avatar = get_object_or_404(Avatar,user = req.user.id)
     if req.method == 'POST':
-        useredit_form = UserEdit(req.POST,instance = {'avatar':avatar,'user':user})
+        useredit_form = UserEdit(req.POST,req.FILES,instance = {'avatar':avatar,'user':user})
         if useredit_form.is_valid():
-            data = useredit_form.cleaned_data
-            user.first_name = data['first_name']
-            user.last_name = data['last_name']
-            user.email = data['email']
+            dataUser = useredit_form['user'].cleaned_data
+            dataAvatar = useredit_form['avatar'].cleaned_data
+            user.username = dataUser['username']
+            user.first_name = dataUser['first_name']
+            user.last_name = dataUser['last_name']
+            user.email = dataUser['email']
+            avatar.user = req.user
+            avatar.image = dataAvatar['image']
             useredit_form.save()
-            avatar = Avatar(
-                user = req.user.id,
-                image = data['image']
-                )
-            avatar.save()
-            return render(req,'user.html',{"mensaje":f'usuario actualizado correctamente'})
-        return render(req,'user.html',{"mensaje":f'error al actualizar el usuario, intente denuevo'})
+            return redirect('home')
+        return render(req,'error.html',{"mensaje":f'error al actualizar el usuario, intente denuevo'})
     else:
         useredit_form = UserEdit(instance = {'avatar':avatar,'user':user})
         return render(req,'user.html',{"form":useredit_form,'avatar_img':avatar.image.url})
 
-# @login_required
-# def user_edit(req):
-#     user = req.user
-#     if req.method == 'POST':
-#         useredit_form = UserEditForm(req.POST,instance = req.user)
-#         if useredit_form.is_valid():
-#             data = useredit_form.cleaned_data
-#             user.first_name = data['first_name']
-#             user.last_name = data['last_name']
-#             user.email = data['email']
-#             useredit_form.save()
-#             return render(req,'user.html',{"mensaje":f'usuario actualizado correctamente'})
-#         avataredit_form = AvatarEditForm(req.POST)
-#         if avataredit_form.is_valid():
-#             data = avataredit_form.cleaned_data
-#             avatar = Avatar(
-#                 user = req.user.id,
-#                 image = data['image']
-#                 )
-#             avatar.save()
-#             return render(req,'user.html',{"mensaje":f'avatar actualizado correctamente'})
-#         return render(req,'user.html',{"mensaje":f'error al actualizar el avatar, intente denuevo'})
-#     else:
-#         avataredit_form = AvatarEditForm()
-#         useredit_form = UserEditForm(instance = user)
-#         return render(req,'user.html',{"useredit_form":useredit_form,"avataredit_form":avataredit_form})
-# @login_required
-# def user_edit(req):
-#     user = req.user
-#     if req.method == 'POST':
-#         useredit_form = UserEditForm(req.POST,instance = req.user)
-#         if useredit_form.is_valid():
-#             data = useredit_form.cleaned_data
-#             user.first_name = data['first_name']
-#             user.last_name = data['last_name']
-#             user.email = data['email']
-#             useredit_form.save()
-#             return render(req,'home.html',{"mensaje":f'usuario actualizado correctamente'})
-#         return render(req,'user.html',{"mensaje":f'error al actualizar el usuario, intente denuevo'})
-#     else:
-#         useredit_form = UserEditForm(instance = user)
-#         return render(req,'user.html',{"useredit_form":useredit_form})
+
 @login_required  
 def avatar_img(req):
     try:
@@ -180,14 +147,6 @@ def avatar_img(req):
         return render(req,'user.html',{'avatar_img':avatar.image.url})
     except:
         return render(req,'user.html')
-
-def search(req):
-    if req.GET['searchTravel']:
-        search = req.GET['searchTravel']
-        travel = Travel.objects.filter(name = search)
-        return render(req,'search.html',{'search':travel})
-    else:
-        return HttpResponse(f'No se busco nada aun...')
 
 def aboutUs(req):
     return render(req,'aboutUs.html')

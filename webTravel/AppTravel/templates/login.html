@@ -20,6 +20,7 @@
 <body class="main">
     <h1 class="main_title">Imagine and Travel</h1>
     <h2 class="masin_subtitle">Bienvenido</h2>
+    {% include 'login_template.html' %}
     <section class="main_modal">
             <div class="row">
                 <div class="col-sm-4"></div>
@@ -28,9 +29,7 @@
                     <a class="btn big-register" data-toggle="modal" href="{% url 'user_register' %}" onclick="openRegisterModal();">Register</a></div>
                 <div class="col-sm-4"></div>
             </div>
-        {% include 'login_template.html' %}
     </section>
-    <a href='{% url "home" %}'>home</a>
     <script type="text/javascript">
     $(document).ready(function(){
         openLoginModal();

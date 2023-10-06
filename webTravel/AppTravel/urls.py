@@ -14,6 +14,5 @@ urlpatterns = [
     path('about-us/',aboutUs,name='about'),
     path('orders/',OrdersView.as_view(),name='orders'),
     path('user/',user_edit,name='user'),
-    path('search/',search,name='search'),
     path('buy/<travelid>',buy_travel,name='buy')
 ]

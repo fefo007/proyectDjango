@@ -58,13 +58,13 @@ MATERIAL_ADMIN_SITE = {
     # 'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
     # 'NAVBAR_REVERSE': True,  # Hide side navbar by default
     'SHOW_COUNTS': True, # Show instances counts for each model
-    'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
-        'apptravel': 'airplanemode_active',
-    },
-    'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
-        'travels': 'airplanemode_active',
-        'orders': 'airplanemode_active'
-    }
+    #'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
+    #    'apptravel': 'airplanemode_active',
+    #},
+    #'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
+        #'travels': 'airplanemode_active',
+        #'orders': 'airplanemode_active'
+    #}
 }
 
 MIDDLEWARE = [
@@ -144,17 +144,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL =  '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+# if DEBUG:
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 LOGIN_URL = '/imagine-and-travel/'
-
-MEDIA_URL =  '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

@@ -2,14 +2,21 @@
     {% block customSection %}
     <section class="user_container">
         <div class="user_img_container">
+            {% if mensaje %}
+                <div>
+                    <h4>
+                        {{mensaje}}
+                    </h4>
+                </div>
+            {% endif %}
             {% if avatar_img %}
-                <img class="user_img" src='{{avatar_img}}' alt='avatar'>
+                <img class="user_img" src={{avatar_img}} alt='avatar'>
             {% else %}
-                <p class="user_img">Coloque una imagen</p>
+                <p class="user_img" style='font-size:40px;justify-self: center;align-self: center;'> Coloque una imagen</p>
             {% endif %}
         </div>
         <div  class="user_form_container">
-            <form class="user_form" action="{%url 'user' %}" method="POST">{% csrf_token %}
+            <form class="user_form" action="{%url 'user' %}" enctype="multipart/form-data" method="POST">{% csrf_token %}
                 {% include "forms_template.html" %}
                 <input class='btn btn-primary' style="margin-top: 15px;" type='submit'value='Actualizar perfil'>        
             </form>

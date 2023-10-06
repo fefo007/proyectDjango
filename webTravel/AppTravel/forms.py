@@ -6,6 +6,14 @@ from .models import Avatar,Travel,Messages,Order
 from betterforms.multiform import MultiModelForm
 
 class OrderForm(forms.ModelForm):
+    departure = forms.DateField(widget = forms.SelectDateWidget(
+        empty_label=("Choose Year", "Choose Month", "Choose Day"),
+    ),
+)
+    arrival= forms.DateField(widget = forms.SelectDateWidget(
+        empty_label=("Choose Year", "Choose Month", "Choose Day"),
+    ),
+)
     class Meta:
         model = Order
         fields = ['wayToPay','departure','arrival']
@@ -42,21 +50,21 @@ class ChangeToursAdmin(admin.ModelAdmin):
 
 class UserEditForm(UserChangeForm):
 
-    password = forms.CharField(help_text='',widget=forms.HiddenInput,required=False)
+    password = forms.CharField(help_text='',widget=forms.HiddenInput,required=False,label='')
 
-    # password1 = forms.CharField(label='password')
-    # password2 = forms.CharField(label='repetir password')
+    password1 = forms.CharField(label='password')
+    password2 = forms.CharField(label='repetir password')
 
     class Meta:
         model = User
-        fields = ['first_name','last_name','email']
+        fields = ['username','first_name','last_name','email']
 
-    # def clean_password(self):
-    #     password1 = self.cleaned_data['password1']
-    #     password2 = self.cleaned_data['password2']
-    #     if password1 != password2:
-    #         raise forms.ValidationError('las contraseñas no coinciden')
-    #     return password2
+    def clean_password(self):
+        password1 = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
+        if password1 != password2:
+            raise forms.ValidationError('las contraseñas no coinciden')
+        return password2
     
 
 class AvatarEditForm(forms.ModelForm):

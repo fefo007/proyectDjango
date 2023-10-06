@@ -1,12 +1,12 @@
 {% extends "base.html" %}
     {% block customSection %}
-    <section>
+    <section class='orders_container'>
         <div>
             <h2>Mis paquetes</h2>
             {% if orders %}
-                <ul>
+                <ul class='orders_list'>
                     {% for order in orders %}
-                        <li>Viaje: {{order.travel}}  Salida: {{order.departure}} Llegada: {{order.arrival}}</li>
+                        <li class='orders_items'>Viaje: {{order.travel}}  Salida: {{order.departure}} Llegada: {{order.arrival}}</li>
                     {% endfor %}
                 </ul> 
             {% else %}

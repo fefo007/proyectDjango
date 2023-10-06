@@ -13,10 +13,11 @@
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css"
         href="//fonts.googleapis.com/css?family=Montserrat:400,500,600,700%7CPoppins:400%7CTeko:300,400" />
-        <link rel="stylesheet" href='{%static "css/bootstrap.css"%}' />
-        <link rel="stylesheet" href='{%static "css/fonts.css"%}' />
-        <link rel="stylesheet" href='{%static "css/style.css"%}' />
-        <link rel="stylesheet" href='{%static "css/customStyles.css"%}' /> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href='{%static "css/bootstrap.css"%}' />
+    <link rel="stylesheet" href='{%static "css/fonts.css"%}' />
+    <link rel="stylesheet" href='{%static "css/style.css"%}' />
+    <link rel="stylesheet" href='{%static "css/customStyles.css"%}' /> 
 </head>
 
 <body>
@@ -85,12 +86,12 @@
                                 </ul>
                                 {% if user.is_authenticated %}
                                     <div>
-                                        <p>Bienvenido {{user.username}}</p>
-                                        <button href="{% url 'user_logout'%}">Logout</button>
+                                        <p class='base_title'>Bienvenido {{user.username}}</p>
+                                        <a class='button button-sm' href="{% url 'user_logout' %}">Logout</a>
                                     </div>
                                 {% else %}
                                     <div>
-                                        <button href="{% url 'user_login'%}">Login</button>
+                                        <a class='button button-sm' href="{% url 'user_login' %}">Login</a>
                                     </div>
                                 {% endif %}
                             </div>
@@ -144,7 +145,7 @@
                         <div class="col-sm-6 col-md-12 col-lg-3 col-xl-4">
                             <div class="oh-desktop">
                                 <div class="wow slideInRight" data-wow-delay="0s">
-                                    <h6 class="text-spacing-100 text-uppercase">Contact us</h6>
+                                    <h6 class="text-spacing-100 text-uppercase">Contactanos</h6>
                                     <ul class="footer-contacts d-inline-block d-sm-block">
                                         <li>
                                             <div class="unit">
@@ -185,26 +186,24 @@
                             <div class="oh-desktop">
                                 <div class="wow slideInDown" data-wow-delay="0s">
                                     <h6 class="text-spacing-100 text-uppercase">
-                                        Popular news
+                                        Noticias populares
                                     </h6>
                                     <!-- Post Minimal 2-->
                                     <article class="post post-minimal-2">
                                         <p class="post-minimal-2-title">
-                                            <a href="#">Your Personal Guide to 5 Best Places to Visit on
-                                                Earth</a>
+                                            <a href="https://www.lonelyplanet.es/blog/los-20-lugares-mas-fascinantes-del-planeta">Mejores lugares del mundo para visitar</a>
                                         </p>
                                         <div class="post-minimal-2-time">
-                                            <time datetime="2019-05-04">May 04, 2019</time>
+                                            <time datetime="2023-10-04">Oct 04, 2023</time>
                                         </div>
                                     </article>
                                     <!-- Post Minimal 2-->
                                     <article class="post post-minimal-2">
                                         <p class="post-minimal-2-title">
-                                            <a href="#">Top 10 Hotels: Rating by Wonder Tour Travel
-                                                Experts</a>
+                                            <a href="https://www.laprensagrafica.com/turismo/Estos-son-los-10-mejores-hoteles-del-mundo-como-es-cada-uno-y-cuanto-cuesta-una-noche-20230629-0078.html">Mejores hoteles del mundo</a>
                                         </p>
                                         <div class="post-minimal-2-time">
-                                            <time datetime="2019-05-04">May 04, 2019</time>
+                                            <time datetime="2023-10-04">Oct 04, 2023</time>
                                         </div>
                                     </article>
                                 </div>
@@ -213,18 +212,14 @@
                         <div class="col-sm-11 col-md-7 col-lg-5 col-xl-4">
                             <div class="oh-desktop">
                                 <div class="wow slideInLeft" data-wow-delay="0s">
-                                    <h6 class="text-spacing-100 text-uppercase">Quick links</h6>
+                                    <h6 class="text-spacing-100 text-uppercase">Links Rapidos</h6>
                                     <ul
                                         class="row-6 list-0 list-marked list-marked-md list-marked-secondary list-custom-2">
-                                        <li><a href="about.html">About us</a></li>
-                                        <li><a href="#">Our Tours</a></li>
-                                        <li><a href="#">Our Team</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="{% url 'about' %}">Sobre nosotros</a></li>
+                                        <li><a href="{% url 'travels' %}">Viajes</a></li>
                                     </ul>
                                     <div class="group-md group-middle justify-content-sm-start">
-                                        <a class="button button-lg button-primary button-ujarak" href="#">Get in
-                                            touch</a>
+                                        <a class="button button-lg button-primary button-ujarak" href="{% url 'contact' %}">Contactenos</a>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +250,7 @@
                             </p>
                         </div>
                         <div class="col-sm-6 col-md-4 text-md-right">
-                            <p class="rights"><a href="#">Privacy Policy</a></p>
+                            <p class="rights">Privacy Policy</p>
                         </div>
                     </div>
                 </div>

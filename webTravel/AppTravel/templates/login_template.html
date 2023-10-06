@@ -25,7 +25,13 @@
                                         <span>or</span>
                                     <div class="line r"></div>
                                 </div>
-                                <div class="error"></div>
+                                {% if msj %}
+                                    <div class="content">
+                                        <p>
+                                            Error: {{msj}}
+                                        </p>
+                                    </div>
+                                {% endif %}
                                 <div class="form loginBox">
                                     <form method="POST" action="{% url 'user_login' %}" accept-charset="UTF-8">{% csrf_token %}
                                         {{user_form.as_p}}
@@ -34,25 +40,34 @@
                                 </div>
                             </div>
                         </div>
+                        {% if mensaje %}
+                            <div class="content">
+                                <p>
+                                    {{mensaje}}
+                                </p>
+                            </div>
+                        {% else %}
                         <div class="box">
                             <div class="content registerBox" style="display:none;">
-                            <div class="form">
-                                <form method="POST" action="{% url 'user_register' %}" accept-charset="UTF-8">{% csrf_token %}
-                                    {{usercreate_form.as_p}}
-                                    <input class="btn btn-default btn-register" type="submit" value="Registrarce" >
-                                </form>
+                                <div class="form">
+                                    <form method="POST" action="{% url 'user_register' %}" accept-charset="UTF-8">{% csrf_token %}
+                                        {{form.as_p}}
+                                        {% comment %} {% include "forms_template.html" %} {% endcomment %}
+                                        <input class="btn btn-default btn-register" type="submit" value="Registrarce" >
+                                    </form>                                    
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        {% endif %}
+
                     <div class="modal-footer">
                         <div class="forgot login-footer">
                             <span>Looking to
-                                <a href="{% url 'user_register' %}">create an account</a>
+                                <a href="{% url 'user_register' %}">crear cuenta</a>
                             ?</span>
                         </div>
                         <div class="forgot register-footer" style="display:none">
-                            <span>Already have an account?</span>
+                            <span>Ya tienes cuenta?</span>
                             <a href="{% url 'user_login' %}">Login</a>
                         </div>
                     </div>
