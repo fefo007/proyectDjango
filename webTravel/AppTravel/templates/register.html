@@ -3,8 +3,13 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagine and Travel</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <link rel="icon" href='{%static "images/favicon.ico" %}' type="image/x-icon" />
     <style>body{padding-top: 60px;}</style>
 
     <link href='{%static "assets/css/bootstrap.css"%}' rel="stylesheet" />
@@ -30,7 +35,6 @@
             </div>
         {% include 'login_template.html' %}
     </section>
-    <a href='{% url "home" %}'>home</a>
     <script type="text/javascript">
     $(document).ready(function(){
         openRegisterModal();

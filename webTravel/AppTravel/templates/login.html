@@ -3,10 +3,14 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imagine and Travel</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <link rel="icon" href='{%static "images/favicon.ico" %}' type="image/x-icon" />
     <style>body{padding-top: 60px;}</style>
-
     <link href='{%static "assets/css/bootstrap.css"%}' rel="stylesheet" />
 	<link href='{%static "assets/css/login-register.css"%}' rel="stylesheet" />
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
@@ -20,15 +24,15 @@
 <body class="main">
     <h1 class="main_title">Imagine and Travel</h1>
     <h2 class="masin_subtitle">Bienvenido</h2>
-    {% include 'login_template.html' %}
     <section class="main_modal">
-            <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <a class="btn big-login" data-toggle="modal" href="{% url 'user_login' %}" onclick="openLoginModal();">Log in</a>
-                    <a class="btn big-register" data-toggle="modal" href="{% url 'user_register' %}" onclick="openRegisterModal();">Register</a></div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <a class="btn big-login" data-toggle="modal" href="{% url 'user_login' %}" onclick="openLoginModal();">Log in</a>
+                <a class="btn big-register" data-toggle="modal" href="{% url 'user_register' %}" onclick="openRegisterModal();">Register</a></div>
                 <div class="col-sm-4"></div>
             </div>
+            {% include 'login_template.html' %}
     </section>
     <script type="text/javascript">
     $(document).ready(function(){
