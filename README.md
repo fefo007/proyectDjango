@@ -4,13 +4,13 @@ Proyecto de sitio web para viajes, realizado principalmente con django. Tambien 
 
 Poner en marcha:
 
-1-clonar el repositorio en una carpeta a eleccion.
+1-clonar el repositorio en una carpeta a eleccion  
 
-2-entrar a la carpeta y luego dentro de proyectDjango iniciar un entorno virtual, pipenv, anaconda , etc.
+2-entrar a la carpeta y luego dentro de proyectDjango iniciar un entorno virtual, pipenv, anaconda , etc.  
 
-3- para este ejemplo se usara pipenv, dentro de proyectDjango ejecutar pipenv shell.
+3- para este ejemplo se usara pipenv, dentro de proyectDjango ejecutar pipenv shell.  
 
-4- en la misma ubicacion anterior ejecutar el comando pip install -r requirement.txt para instalar las dependencias necesarias.
+4- en la misma ubicacion anterior ejecutar el comando pip install -r requirement.txt para instalar las dependencias necesarias.  
 
 5- entrar a la carpeta webTravel y ejecutar el comando python manage.py runserver.
 
